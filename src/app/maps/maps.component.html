@@ -1,0 +1,32 @@
+<div *ngIf="lat && lng">
+
+  <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="onClick($event)">
+
+    <agm-marker [latitude]="lat" [longitude]="lng">
+
+      <agm-info-window>
+        <h3><strong>Howdy!</strong></h3>
+        <p>You are here!
+          {{ lat }}
+          {{ lng }}
+        </p>
+      </agm-info-window>
+
+    </agm-marker>
+
+    <agm-marker [latitude]="clickLat" [longitude]="clickLng" *ngIf="isclicked">
+      <agm-info-window>
+        <h3><strong>Howdy!</strong></h3>
+        <p>You clicked here
+          {{ clickLat }}
+          {{ clickLng }}
+        </p>
+      </agm-info-window>
+
+    </agm-marker>
+
+   
+
+  </agm-map>
+
+<div>

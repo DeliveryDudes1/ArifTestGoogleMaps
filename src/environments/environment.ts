@@ -3,7 +3,21 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+
+  googleMapsKey: 'AIzaSyBUp3Y-GD97Imt6axIjoY9zNz_M-bTObLA',
+
+
+  firebase: {
+    //firebase config
+    apiKey: "AIzaSyCjzfuEKn2QbgbBcEQvUPcB_NKV15swBng",
+    authDomain: "testgeofire-50e62.firebaseapp.com",
+    databaseURL: "https://testgeofire-50e62.firebaseio.com",
+    projectId: "testgeofire-50e62",
+    storageBucket: "testgeofire-50e62.appspot.com",
+    messagingSenderId: "360002387132"
+  }
 };
 
 /*
