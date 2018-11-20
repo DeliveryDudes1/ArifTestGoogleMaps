@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GeoService } from '../geo.service';
 import { google } from '@agm/core/services/google-maps-types';
+import { DistanceService } from '../distance.service';
+import { IDistanceMatrix } from '../IDistance';
 
 @Component({
   selector: 'app-maps',
@@ -12,6 +14,9 @@ export class MapsComponent implements OnInit{
   lat: number;
   lng: number;
 
+  originLonLat: string;
+  destinationLonLat: string;
+
   clickLat: number;
   clickLng: number;
 
@@ -22,11 +27,13 @@ export class MapsComponent implements OnInit{
 
   isclicked: boolean = false;
 
-  constructor() { }
+  distanceData: IDistanceMatrix;
+
+  constructor(private _distanceMatric : DistanceService) { }
 
   ngOnInit() {
-    this.getUserLocation()
-    
+    this.getUserLocation();
+   
   }
 
 
@@ -46,10 +53,19 @@ export class MapsComponent implements OnInit{
     this.clickLng = ent.coords.lng;
     this.isclicked = true;
     console.log(this.clickLng);
+   
+    this.destinationLonLat = this.clickLat.toString()+this.clickLng.toString();
+
+    this.originLonLat = this.lat.toString()+this.lng.toString();
+    this._distanceMatric.getImageList(this.originLonLat,this.destinationLonLat).subscribe(data => {
+      this.distanceData = data
+    });
+
     this.getDistance();
+
   }
 
    getDistance(){
-    this.distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(this.lat, this.lng), new google.maps.LatLng( this.clickLat, this.clickLng));
+     this.distance = this.distanceData.rows[0].elements[0].distance.value;
    }
 }
